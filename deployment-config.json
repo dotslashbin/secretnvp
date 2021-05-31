@@ -1,0 +1,11 @@
+[
+  {
+    "name": "secretnvp",
+    "ip": "54.84.209.217",
+    "username": "ubuntu",
+    "port": "22",
+    "beforeHooks": "",
+    "afterHooks": "",
+    "path": ""
+  }
+]
