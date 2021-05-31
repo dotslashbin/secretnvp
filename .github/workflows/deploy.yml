@@ -27,7 +27,14 @@ jobs:
       with:
         name: app-build
         path: ${{ github.sha }}.tar.gz
-
+    - name: Export deployment matrix
+      id: export-deployment-matrix
+      run: |
+        JSON="$(cat ./deployment-config.json)"
+        JSON="${JSON//'%'/'%25'}"
+        JSON="${JSON//$'\n'/'%0A'}"
+        JSON="${JSON//$'\r'/'%0D'}"
+        echo "::set-output name=deployment-matrix::$JSON"
     # - name: Copy .env
     #   run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     
