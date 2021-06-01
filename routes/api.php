@@ -14,10 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\NVPFetchController;
+use App\Http\Controllers\NVPReadController;
+use App\Http\Controllers\NVPWriteController;
 
-Route::post('object', function (Request $request) {
-    var_dump($request);
-});
-
-Route::get('object/{key}', NVPFetchController::class);
+Route::post('object', NVPWriteController::class);
+Route::get('object/{key}', NVPReadController::class);
