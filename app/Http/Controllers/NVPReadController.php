@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\NVPServices\NVPReader as NVPReader;
+use Illuminate\Support\Facades\Validator;
 use stdClass;
-
-use App\Models\NVPModel;
 
 class NVPReadController extends Controller
 {
@@ -17,9 +17,20 @@ class NVPReadController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'timestamp' => 'numeric'
+        ]);
 
-        $test = NVPModel::where('key', $request->key)->take(1)->get();
-        
-        return response()->json($test)->header('Content-Type', 'application/json');
+        if ($validator->fails()) {
+            $failure = new stdClass;
+            $failure->error = $validator->;
+            return GenerateResponse($failure);
+        }
+
+        $key = $request->key;
+        $timeStamp = ($request->timeStamp)? $request->timeStamp:'';
+
+        $nvpReader = new NVPReader($key, $timeStamp);
+        return $this->executeProcess($nvpReader);
     }
 }
