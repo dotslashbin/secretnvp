@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\NVPServices\NVPWriter as NVPWriter;
 
 class NVPWriteController extends Controller
 {
@@ -14,7 +15,7 @@ class NVPWriteController extends Controller
      */
     public function __invoke(Request $request)
     {
-        var_dump($request);
-        exit('you are writing');
+        $nvpWriter = new NVPWriter($request->key, $request->value);
+        return $this->executeProcess($nvpWriter);
     }
 }
