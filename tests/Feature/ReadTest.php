@@ -20,10 +20,10 @@ class ReadTest extends TestCase
      */
     public function test_if_the_resulting_key_are_the_same()
     {
-        $inputValue = 'abcxyz';
+        $inputValue = 'quibusdam';
         $content = $this->get('/api/object/'.$inputValue)->getContent();
 
         $result = json_decode($content);
-        $this->assertTrue($result->key === $inputValue);
+        $this->assertTrue($result[0]->key === $inputValue);
     }
 }

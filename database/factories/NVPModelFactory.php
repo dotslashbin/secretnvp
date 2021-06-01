@@ -15,7 +15,7 @@ class NVPModelFactory extends Factory
     protected $model = NVPModel::class;
 
     /**
-     * Define the model's default state.
+     * Define the model's default state.w
      *
      * @return array
      */

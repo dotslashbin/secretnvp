@@ -18,14 +18,8 @@ class NVPReadController extends Controller
     public function __invoke(Request $request)
     {
 
-
-        $sampleData = new stdClass;
-
-        $sampleData->key = $request->key;
-
-        $test = NVPModel::find('60b59a9478dad54a3b8b3ca6');
-        $sampleData->test = $test;
+        $test = NVPModel::where('key', $request->key)->take(1)->get();
         
-        return response()->json($sampleData)->header('Content-Type', 'application/json');
+        return response()->json($test)->header('Content-Type', 'application/json');
     }
 }
