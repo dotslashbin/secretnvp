@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class NVPFetchController extends Controller
+class NVPReadController extends Controller
 {
     /**
      * Handle the incoming request.
