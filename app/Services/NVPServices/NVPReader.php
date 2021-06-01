@@ -4,7 +4,6 @@ namespace App\Services\NVPServices;
 use App\Services\NVPServices\DataServiceINT;
 use App\Models\NVPModel;
 
-
 class NVPReader implements DataServiceINT {
 
 	private $filterKey;
