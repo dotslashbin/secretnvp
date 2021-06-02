@@ -22,7 +22,7 @@ class NVPModelFactory extends Factory
     public function definition()
     {
         return [
-            'key' => $this->faker->word(),
+            'key' => 'FOO',
             'value' => $this->faker->word(),
             'created_at' => $this->faker->iso8601()
         ];

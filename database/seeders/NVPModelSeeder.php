@@ -13,6 +13,6 @@ class NVPModelSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\NVPModel::factory(102)->create();
+        \App\Models\NVPModel::factory(5)->create();
     }
 }
