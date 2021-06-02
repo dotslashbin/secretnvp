@@ -24,7 +24,7 @@ class WriteTest extends TestCase
         $response = $this->post('/api/object', [ 'key' => $key, 'value' => $value ]);
         $response->assertStatus(200);   
 
-        $returnValue = $response->getContent();
-        var_dump($returnValue);
+        $returnValue = json_decode($response->getContent());
+        $this->assertTrue($returnValue->data === true);
     }
 }
