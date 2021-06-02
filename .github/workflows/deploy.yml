@@ -40,7 +40,7 @@ jobs:
           host: ${{ secrets.SERVER_URL }}
           key: ${{ secrets.SSH_KEY }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          # password: ${{ secrets.PASSWORD }}
           script: |
             cd /var/www/html/
             git checkout -f 
