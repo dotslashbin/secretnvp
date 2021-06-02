@@ -8,11 +8,18 @@ class NVPWriter implements DataServiceINT {
 
 	private $key;
 	private $value;
+	private $returnStructure;
 
 	function __construct(string $key = '', string $value = '')
 	{
 		$this->key = $key;
 		$this->value = $value;
+		$this->returnStructure = 'RESULT';
+
+	}
+
+	public function GetReturnStructure() {
+		return $this->returnStructure;
 	}
 
 	/**

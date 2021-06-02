@@ -8,12 +8,17 @@
  * @param integer $itemsPerPage
  * @return void
  */
-function FormatReturn($data, int $page = 1, int $itemsPerPage = 10) {
+function FormatReturn($data, $returnStructure, int $page = 1, int $itemsPerPage = 10) {
 	$format = new stdClass;
 
 	$format->data = $data;
-	$format->page = $page; 
-	$format->itemsPerPage = $itemsPerPage;
+
+	if($returnStructure === 'DATA_SET') {
+		$format->page = $page; 
+		$format->itemsPerPage = $itemsPerPage;
+	}
+	
+	$format->foo = "whatever we need";
 
 	return $format;
 }

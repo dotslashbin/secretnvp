@@ -21,6 +21,6 @@ class Controller extends BaseController
      */
     protected function executeProcess(DataServiceINT $service) {
         $data = $service->RunQuery();
-        return GenerateResponse(FormatReturn($data));
+        return GenerateResponse(FormatReturn($data, $service->GetReturnStructure()));
     }
 }

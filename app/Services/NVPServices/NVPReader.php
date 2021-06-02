@@ -8,11 +8,17 @@ class NVPReader implements DataServiceINT {
 
 	private $filterKey;
 	private $filterTimestamp;
+	private $returnStructure;
 
 	function __construct(string $key = '', string $timestamp = '')
 	{
 		$this->filterKey = $key;
 		$this->filterTimestamp = $timestamp;
+		$this->returnStructure = 'DATA_SET';
+	}
+
+	public function GetReturnStructure() {
+		return $this->returnStructure;
 	}
 
 	/**
