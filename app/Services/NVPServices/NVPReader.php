@@ -15,21 +15,10 @@ class NVPReader implements DataServiceINT {
 	{
 		$this->filterKey = $key;
 		$this->filterTimestamp = $timestamp;
-		$this->returnStructure = config('app.NVPReturnStructures.DATA_SET');
 	}
 
 	public function GetReturnStructure() {
 		return $this->returnStructure;
-	}
-
-	/**
-	 * Executes the running of db query
-	 *
-	 * @return void
-	 */
-	public function RunQuery()
-	{
-		return ($this->filterKey !== '')? $this->queryBasedOnKey():$this->queryAll();
 	}
 
 	/**
@@ -56,6 +45,27 @@ class NVPReader implements DataServiceINT {
 
 		$query->orderBy('created_at', 'desc');
 
-		return $query->get();
+		return $query->first();
+	}
+
+	/**
+	 * Executes the running of db query
+	 *
+	 * @return void
+	 */
+	public function RunQuery()
+	{
+		return ($this->filterKey !== '')? $this->queryBasedOnKey():$this->queryAll();
+	}
+
+	/**
+	 * Sets the return structure value
+	 *
+	 * @param string $structure
+	 * @return void
+	 */
+	public function SetReturnStructure(string $structure)
+	{
+		$this->returnStructure = $structure;
 	}
 }

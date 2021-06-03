@@ -16,6 +16,7 @@ class NVPReadAllController extends Controller
     public function __invoke(Request $request)
     {
         $nvpReader = new NVPReader();
+        $nvpReader->SetReturnStructure(config('app.NVPReturnStructures.DATA_SET'));
         return $this->executeProcess($nvpReader);
     }
 }
