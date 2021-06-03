@@ -14,7 +14,7 @@ class NVPWriter implements DataServiceINT {
 	{
 		$this->key = $key;
 		$this->value = $value;
-		$this->returnStructure = 'RESULT';
+		$this->returnStructure = config('app.NVPReturnStructures.RESULT');
 
 	}
 

@@ -1,6 +1,13 @@
 <?php
 
 return [
+    /**
+     * Additionals
+     */
+    'NVPReturnStructures' => [
+        'DATA_SET' => 'DATA_SET',
+        'RESULT' => 'RESULT'
+    ],
 
     /*
     |--------------------------------------------------------------------------

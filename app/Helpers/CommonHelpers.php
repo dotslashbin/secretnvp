@@ -13,7 +13,7 @@ function FormatReturn($data, $returnStructure, int $page = 1, int $itemsPerPage 
 
 	$format->data = $data;
 
-	if($returnStructure === 'DATA_SET') {
+	if($returnStructure === config('app.NVPReturnStructures.DATA_SET')) {
 		$format->page = $page; 
 		$format->itemsPerPage = $itemsPerPage;
 	}
