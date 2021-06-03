@@ -3,6 +3,7 @@
 namespace App\Services\NVPServices;
 use App\Services\NVPServices\DataServiceINT;
 use App\Models\NVPModel;
+use stdClass;
 
 class NVPWriter implements DataServiceINT {
 
@@ -27,12 +28,17 @@ class NVPWriter implements DataServiceINT {
 	 *
 	 * @return void
 	 */
-	public function RunQuery()
+	public function RunQuery(): stdClass
 	{
 		$nvpRecord = new NVPModel;
 		$nvpRecord->key = $this->key;
 		$nvpRecord->value = $this->value;
 
-		return $nvpRecord->save();
+		$result = $nvpRecord->save();
+		$returnObject = new stdClass;
+		$returnObject->result = $result;
+		$returnObject->message = ($result)? "Successfully added a record for key: ".$this->key." with value ->".$this->value:'Failed to insert record!!';
+
+		return $returnObject;
 	}
 }

@@ -18,8 +18,6 @@ function FormatReturn($data, $returnStructure, int $page = 1, int $itemsPerPage 
 		$format->itemsPerPage = $itemsPerPage;
 	}
 	
-	$format->foo = "whatever we need";
-
 	return $format;
 }
 
