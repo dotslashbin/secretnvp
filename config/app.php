@@ -1,6 +1,13 @@
 <?php
 
 return [
+    /**
+     * Additionals
+     */
+    'NVPReturnStructures' => [
+        'DATA_SET' => 'DATA_SET',
+        'RESULT' => 'RESULT'
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -174,7 +181,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        // MONGODB provider
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
     ],
 
     /*

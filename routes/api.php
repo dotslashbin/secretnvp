@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+use App\Http\Controllers\NVPReadController;
+use App\Http\Controllers\NVPWriteController;
+
+Route::post('object', NVPWriteController::class);
+Route::get('object/{key}', NVPReadController::class);
