@@ -54,6 +54,8 @@ class NVPReader implements DataServiceINT {
 			$query->where('created_at', $convertedDate); 
 		}
 
+		$query->orderBy('created_at', 'desc');
+
 		return $query->get();
 	}
 }
