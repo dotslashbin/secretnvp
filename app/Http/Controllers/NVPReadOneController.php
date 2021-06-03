@@ -28,9 +28,9 @@ class NVPReadOneController extends Controller
         }
 
         $key = $request->key;
-        $timeStamp = ($request->timeStamp)? $request->timeStamp:'';
+        $timestamp = ($request->timestamp)? $request->timestamp:'';
 
-        $nvpReader = new NVPReader($key, $timeStamp);
+        $nvpReader = new NVPReader($key, $timestamp);
         return $this->executeProcess($nvpReader);
     }
 }
