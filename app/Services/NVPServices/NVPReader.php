@@ -3,6 +3,7 @@
 namespace App\Services\NVPServices;
 use App\Services\NVPServices\DataServiceINT;
 use App\Models\NVPModel;
+use Carbon\Carbon;
 
 class NVPReader implements DataServiceINT {
 
@@ -49,7 +50,8 @@ class NVPReader implements DataServiceINT {
 		$query = NVPModel::where('key', $this->filterKey);
 
 		if($this->filterTimestamp) {
-			$query->where('value', $this->filterTimestamp); 
+			$convertedDate = Carbon::createFromTimestamp($this->filterTimestamp);
+			$query->where('created_at', $convertedDate); 
 		}
 
 		return $query->get();
