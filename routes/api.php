@@ -18,5 +18,4 @@ use App\Http\Controllers\NVPWriteController;
 
 Route::get('object/get-all-records', NVPReadAllController::class);
 Route::get('object/{key}', NVPReadOneController::class);
-
 Route::post('object', NVPWriteController::class);
