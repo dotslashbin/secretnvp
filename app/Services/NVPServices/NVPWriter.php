@@ -37,7 +37,7 @@ class NVPWriter implements DataServiceINT {
 		$result = $nvpRecord->save();
 		$returnObject = new stdClass;
 		$returnObject->result = $result;
-		$returnObject->message = ($result)? "Successfully added a record for key: ".$this->key." with value ->".$this->value:'Failed to insert record!!';
+		$returnObject->ID = ($result)? $nvpRecord->id:'';
 
 		return $returnObject;
 	}
