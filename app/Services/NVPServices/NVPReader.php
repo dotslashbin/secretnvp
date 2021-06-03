@@ -28,10 +28,28 @@ class NVPReader implements DataServiceINT {
 	 */
 	public function RunQuery()
 	{
+		return ($this->filterKey !== '')? $this->queryBasedOnKey():$this->queryAll();
+	}
+
+	/**
+	 * Returns the result of querying all records
+	 *
+	 * @return void
+	 */
+	private function queryAll(){
+		return NVPModel::all();
+	}
+
+	/**
+	 * Returns the result of querying just one
+	 *
+	 * @return void
+	 */
+	private function queryBasedOnKey() {
 		$query = NVPModel::where('key', $this->filterKey);
 
 		if($this->filterTimestamp) {
-			$query->where('value', 'velit'); // TODO change this to the real one
+			$query->where('value', $this->filterTimestamp); 
 		}
 
 		return $query->get();

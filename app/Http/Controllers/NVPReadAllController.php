@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\NVPServices\NVPReader as NVPReader;
 use Illuminate\Http\Request;
 
 class NVPReadAllController extends Controller
@@ -14,6 +15,7 @@ class NVPReadAllController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return "oieuoieuf";
+        $nvpReader = new NVPReader();
+        return $this->executeProcess($nvpReader);
     }
 }
