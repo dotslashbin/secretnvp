@@ -23,7 +23,7 @@ class NVPReadOneController extends Controller
 
         if ($validator->fails()) {
             $failure = new stdClass;
-            $failure->error = "Unacceptable timestamp format.";
+            $failure->error = "Unacceptable input format.";
             return GenerateResponse($failure);
         }
 
