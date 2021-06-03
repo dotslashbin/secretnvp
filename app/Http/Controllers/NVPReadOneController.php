@@ -7,7 +7,7 @@ use App\Services\NVPServices\NVPReader as NVPReader;
 use Illuminate\Support\Facades\Validator;
 use stdClass;
 
-class NVPReadController extends Controller
+class NVPReadOneController extends Controller
 {
     /**
      * Handle the incoming request.
