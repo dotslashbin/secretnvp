@@ -26,17 +26,15 @@ class NVPWriter implements DataServiceINT {
 	 *
 	 * @return void
 	 */
-	public function RunQuery(): stdClass
+	public function RunQuery(): NVPModel
 	{
 		$nvpRecord = new NVPModel;
 		$nvpRecord->key = $this->key;
 		$nvpRecord->value = $this->value;
 
 		$result = $nvpRecord->save();
-		$returnObject = new stdClass;
-		$returnObject->ID = ($result)? $nvpRecord:'';
 
-		return $returnObject;
+		return ($result)? $nvpRecord: null;
 	}
 
 	/**

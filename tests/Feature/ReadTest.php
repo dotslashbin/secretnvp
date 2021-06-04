@@ -24,6 +24,6 @@ class ReadTest extends TestCase
         $content = $this->get('/api/object/'.$inputValue)->getContent();
 
         $result = json_decode($content);
-        $this->assertTrue($result->data[0]->key === $inputValue);
+        $this->assertTrue($result->data->key === $inputValue);
     }
 }

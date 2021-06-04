@@ -25,6 +25,8 @@ class WriteTest extends TestCase
         $response->assertStatus(200);   
 
         $returnValue = json_decode($response->getContent());
-        $this->assertTrue($returnValue->data->result === true);
+        $this->assertTrue($returnValue->data->_id !== null);
+        $this->assertTrue($returnValue->data->key === $key);
+        $this->assertTrue($returnValue->data->value === $value);
     }
 }
