@@ -9,35 +9,53 @@ jobs:
     runs-on: ubuntu-latest
   
     steps:
-      
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Deployment
+      - name: Prepping deployment artifacts
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_URL }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            sudo mv /var/www/test/ /var/www/testxxx
+            sudo mkdir /var/www/test
             cd /home/ubuntu/secretnvp
             git checkout -f 
             git pull origin master
-            sudo cp app.tar.gz /var/www/test
-            cd /var/www/test
-            sudo tar -xf app.tar.gz
-            cd ../
-            sudo cp -Rf essentials/.env essentials/vendor test
-            sudo chown -R www-data:www-data test/
-            sudo rm -Rf test/app.tar.gz
-      
-      - name: testing
+            tar -czf ${{ github.sha }}.tar.gz --exclude=.git --exclude=node_modules *
+        
+      - name: Backing up and setup for installation
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_URL }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /home/ubuntu/
-            touch ANOTHER.txt
+            cd /var/www/
+            sudo mv test/ test-$(date "+%Y.%m.%d-%H.%M.%S")
+            sudo mkdir test
+            sudo cp -Rf essentials/.env essentials/vendor test
+
+      - name: Installing new files
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_URL }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: |
+            cd /home/ubuntu/secretnvp
+            sudo cp -v ${{ github.sha }}.tar.gz /var/www/test
+            cd /var/www/test
+            sudo tar -xf ${{ github.sha }}.tar.gz
+            cd ../
+            sudo chown -Rf www-data:www-data test/
+      
+      # - name: Cleanup
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.SERVER_URL }}
+      #     username: ${{ secrets.USERNAME }}
+      #     password: ${{ secrets.SSH_PASSWORD }}
+      #     script: |
+      #       cd /home/ubuntu/
+      #       touch ANOTHER.txt
+
+        
