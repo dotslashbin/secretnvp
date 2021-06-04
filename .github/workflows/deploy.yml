@@ -38,8 +38,10 @@ jobs:
         with:
           host: ${{ secrets.SERVER_URL }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /var/www/secretnvp
-            git checkout -f 
-            git pull origin master
+            cd /home/ubuntu
+            touch thetest.txt
+            # cd /var/www/secretnvp
+            # git checkout -f 
+            # git pull origin master
