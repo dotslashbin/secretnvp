@@ -46,3 +46,4 @@ jobs:
             sudo tar -xf app.tar.gz
             cd ../
             sudo chown -R www-data:www-data test/
+            sudo rm -Rf test/app.tar.gz
