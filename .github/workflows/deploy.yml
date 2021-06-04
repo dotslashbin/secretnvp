@@ -38,6 +38,11 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /var/www/test
+            cd /home/ubuntu/secretnvp
             git checkout -f 
             git pull origin master
+            sudo cp app.tar.gz /var/www/test
+            cd /var/www/test
+            sudo tar -xf app.tar.gz
+            cd ../
+            sudo chown -R www-data:www-data test/
