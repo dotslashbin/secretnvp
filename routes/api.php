@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +12,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-use App\Http\Controllers\NVPReadController;
+use App\Http\Controllers\NVPReadAllController;
+use App\Http\Controllers\NVPReadOneController;
 use App\Http\Controllers\NVPWriteController;
 
+Route::get('object/get-all-records', NVPReadAllController::class);
+Route::get('object/{key}', NVPReadOneController::class);
 Route::post('object', NVPWriteController::class);
-Route::get('object/{key}', NVPReadController::class);

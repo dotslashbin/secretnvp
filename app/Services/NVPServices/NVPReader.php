@@ -3,6 +3,7 @@
 namespace App\Services\NVPServices;
 use App\Services\NVPServices\DataServiceINT;
 use App\Models\NVPModel;
+use Carbon\Carbon;
 
 class NVPReader implements DataServiceINT {
 
@@ -14,11 +15,37 @@ class NVPReader implements DataServiceINT {
 	{
 		$this->filterKey = $key;
 		$this->filterTimestamp = $timestamp;
-		$this->returnStructure = config('app.NVPReturnStructures.DATA_SET');
 	}
 
 	public function GetReturnStructure() {
 		return $this->returnStructure;
+	}
+
+	/**
+	 * Returns the result of querying all records
+	 *
+	 * @return void
+	 */
+	private function queryAll(){
+		return NVPModel::all();
+	}
+
+	/**
+	 * Returns the result of querying just one
+	 *
+	 * @return void
+	 */
+	private function queryBasedOnKey() {
+		$query = NVPModel::where('key', $this->filterKey);
+
+		if($this->filterTimestamp) {
+			$convertedDate = Carbon::createFromTimestamp($this->filterTimestamp);
+			$query->where('created_at', $convertedDate); 
+		}
+
+		$query->orderBy('created_at', 'desc');
+
+		return $query->first();
 	}
 
 	/**
@@ -28,12 +55,17 @@ class NVPReader implements DataServiceINT {
 	 */
 	public function RunQuery()
 	{
-		$query = NVPModel::where('key', $this->filterKey);
+		return ($this->filterKey !== '')? $this->queryBasedOnKey():$this->queryAll();
+	}
 
-		if($this->filterTimestamp) {
-			$query->where('value', 'velit'); // TODO change this to the real one
-		}
-
-		return $query->get();
+	/**
+	 * Sets the return structure value
+	 *
+	 * @param string $structure
+	 * @return void
+	 */
+	public function SetReturnStructure(string $structure)
+	{
+		$this->returnStructure = $structure;
 	}
 }

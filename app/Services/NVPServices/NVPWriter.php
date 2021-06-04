@@ -15,8 +15,6 @@ class NVPWriter implements DataServiceINT {
 	{
 		$this->key = $key;
 		$this->value = $value;
-		$this->returnStructure = config('app.NVPReturnStructures.RESULT');
-
 	}
 
 	public function GetReturnStructure() {
@@ -36,9 +34,19 @@ class NVPWriter implements DataServiceINT {
 
 		$result = $nvpRecord->save();
 		$returnObject = new stdClass;
-		$returnObject->result = $result;
-		$returnObject->ID = ($result)? $nvpRecord->id:'';
+		$returnObject->ID = ($result)? $nvpRecord:'';
 
 		return $returnObject;
+	}
+
+	/**
+	 * Sets the return structure value
+	 *
+	 * @param string $structure
+	 * @return void
+	 */
+	public function SetReturnStructure(String $structure)
+	{
+		$this->returnStructure = $structure;
 	}
 }

@@ -6,7 +6,7 @@ return [
      */
     'NVPReturnStructures' => [
         'DATA_SET' => 'DATA_SET',
-        'RESULT' => 'RESULT'
+        'SINGLE_RECORD' => 'SINGLE_RECORD'
     ],
 
     /*
