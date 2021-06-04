@@ -40,6 +40,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
-            cd /var/www/secretnvp
+            cd /var/www/test
             git checkout -f 
             git pull origin master
