@@ -50,15 +50,13 @@ class WriteTest extends TestCase
 
     public function test_if_invalid_characters_are_captured()
     {
-        $key = '<haha>thismustfai821739872937</haha>';
+        $key = '<haha>thismu*&#*$&^$*#stfai821739872937</haha>';
         $value = '<script>textwithtag(*#&49</script>';
 
         $response = $this->post('/api/object', [ 'key' => $key, 'value' => $value ]);
-        $response->assertStatus(200);   
+        $response->assertStatus(422);   
         $result = json_decode($response->getContent());
-
-        $this->assertEquals("Unacceptable key format.", $result->error);
-        // $returnValue = json_decode($response->getContent());
-        
+        $this->assertGreaterThan(0, count($result->key));
+        $this->assertGreaterThan(0, count($result->value));
     }
 }

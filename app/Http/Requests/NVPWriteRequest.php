@@ -10,7 +10,7 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 
 
 
-class NVPRequest extends FormRequest
+class NVPWriteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -31,6 +31,7 @@ class NVPRequest extends FormRequest
     {
         return [
             'key' => 'required|alpha_num',
+            'value' => 'alpha_num'
         ];
     }
 
