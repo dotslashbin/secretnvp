@@ -25,8 +25,8 @@ class Controller extends BaseController
             FormatReturn(
                 $data, 
                 $service->GetReturnStructure(), 
-                (property_exists($service, 'page'))? $service->page:null, 
-                (property_exists($service, 'limit'))? $service->limit: null
+                (property_exists($service, 'page'))? $service->page:0, 
+                (property_exists($service, 'limit'))? $service->limit: 0
             )
         );
     }
