@@ -11,10 +11,17 @@ class NVPReader implements DataServiceINT {
 	private $filterTimestamp;
 	private $returnStructure;
 
-	function __construct(string $key = '', string $timestamp = '')
+	public $page;
+	public $limit; 
+	public $skip; 
+
+	function __construct(string $key = '', string $timestamp = '', int $page = 0, int $limit = 0)
 	{
 		$this->filterKey = $key;
 		$this->filterTimestamp = $timestamp;
+		$this->limit = ($limit > 0)? $limit: config('app.DEFAULT_ITEMS_PER_PAGE');
+		$this->skip = ($page > 0)? ($page - 1) * $this->limit: config('app.DEFAULT_SKIP');
+		$this->page = ($page > 0)? $page: 1;
 	}
 
 	public function GetReturnStructure() {
@@ -26,8 +33,8 @@ class NVPReader implements DataServiceINT {
 	 *
 	 * @return void
 	 */
-	private function queryAll(int $skip = config('app.DEFAULT_SKIP'),int $limit = config('app.DEFAULT_ITEMS_PER_PAGE') ){
-		return NVPModel::skip($skip)->take($limit)->get();
+	private function queryAll(){
+		return NVPModel::skip($this->skip)->take($this->limit)->get();
 	}
 
 	/**
