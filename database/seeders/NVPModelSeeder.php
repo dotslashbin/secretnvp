@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 
 class NVPModelSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -13,6 +14,8 @@ class NVPModelSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\NVPModel::factory(5)->create();
+        // Populates the a whole bunch of records
+        \App\Models\NVPModel::factory(1000)->create();
+        \App\Models\NVPModel::factory(5)->create(['key' => 'FOO']);
     }
 }
