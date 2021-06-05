@@ -26,8 +26,8 @@ class NVPReader implements DataServiceINT {
 	 *
 	 * @return void
 	 */
-	private function queryAll(){
-		return NVPModel::all();
+	private function queryAll(int $skip = config('app.DEFAULT_SKIP'),int $limit = config('app.DEFAULT_ITEMS_PER_PAGE') ){
+		return NVPModel::skip($skip)->take($limit)->get();
 	}
 
 	/**
