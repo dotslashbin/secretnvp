@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use App\Rules\UnixTimestamp;
 
 class NVPGetRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class NVPGetRequest extends FormRequest
     public function rules()
     {
         return [
-            'timestamp' => 'numeric'
+            'timestamp' => ['numeric', new UnixTimestamp]
         ];
     }
 
