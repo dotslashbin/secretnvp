@@ -8,19 +8,14 @@
  * @param integer $itemsPerPage
  * @return void
  */
-function FormatReturn($data, $returnStructure, int $page = 1, int $itemsPerPage = 10) {
+function FormatReturn($data, $returnStructure, $page = 0, $limit = 0) {
 	$format = new stdClass;
 
 	$format->data = $data;
 
-	/**
-	 * This section is unecessary at this point, but I am putting it here to demonstrate
-	 * that should there be a need formatting of output like such, they will be implmeented
-	 * in a helper that is agnostic fo where the data comes from.
-	 */
 	if($returnStructure === config('app.NVPReturnStructures.DATA_SET')) {
-		$format->page = $page; 
-		$format->itemsPerPage = $itemsPerPage;
+		$format->page = ($page > 0)? $page: config('app.DEFAULT_SKIP'); 
+		$format->itemsPerPage = ($limit > 0)? $limit: config('app.DEFAULT_ITEMS_PER_PAGE');
 	}
 	
 	return $format;
