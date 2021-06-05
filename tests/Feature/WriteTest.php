@@ -12,7 +12,7 @@ class WriteTest extends TestCase
     use WithFaker;
 
     /**
-     * A basic feature test example.
+     * Test to see if the endpoint works providing the correct inputs
      *
      * @return void
      */
@@ -28,5 +28,23 @@ class WriteTest extends TestCase
         $this->assertTrue($returnValue->data->_id !== null);
         $this->assertTrue($returnValue->data->key === $key);
         $this->assertTrue($returnValue->data->value === $value);
+    }
+
+    /**
+     * Tests to see if the inputs are sanitized upon saving
+     *
+     * @return void
+     */
+    public function test_if_inputs_are_sanitized() 
+    {
+        $key = '<haha>destroyWebsite</haha>';
+        $value = '<script>textwithtag</script>';
+
+        $response = $this->post('/api/object', [ 'key' => $key, 'value' => $value ]);
+        $response->assertStatus(200);   
+
+        $returnValue = json_decode($response->getContent());
+        $this->assertTrue($returnValue->data->key === 'destroyWebsite');
+        $this->assertTrue($returnValue->data->value === 'textwithtag');
     }
 }
