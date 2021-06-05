@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Services\NVPServices\NVPReader as NVPReader;
-use Illuminate\Support\Facades\Validator;
-use stdClass;
+use App\Http\Requests\NVPGetRequest;
 
 class NVPReadOneController extends Controller
 {
@@ -15,18 +13,8 @@ class NVPReadOneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(NVPGetRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'timestamp' => 'numeric'
-        ]);
-
-        if ($validator->fails()) {
-            $failure = new stdClass;
-            $failure->error = "Unacceptable input format.";
-            return GenerateResponse($failure);
-        }
-
         $key = $request->key;
         $timestamp = ($request->timestamp)? $request->timestamp:'';
 
