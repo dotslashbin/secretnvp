@@ -183,6 +183,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // MONGODB provider
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        Jenssegers\Mongodb\MongodbQueueServiceProvider::class,
+
     ],
 
     /*
