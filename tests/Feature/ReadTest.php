@@ -80,4 +80,24 @@ class ReadTest extends TestCase
         $basis = NVPModel::where('key', $testKey)->orderByDesc('created_at')->limit(1)->get(); 
         $this->assertEquals($basis[0]->_id, $content->data->_id);
     }
+
+    /**
+     * Tests  to see if fetching one with a given timestamp does return the correct record
+     *
+     * @return void
+     */
+    public function test_if_fetching_with_timestamp_returns_the_correct_record()
+    {
+        $testKey        = 'FOO';
+        $basis          = NVPModel::where('key', $testKey)->get();
+        $testSubject    = $basis[rand(0, count($basis) - 1)];
+
+        $timeStampToMatch = date("U", strtotime($testSubject->created_at));
+
+        $response = $this->get(self::API_PATH.'/'.$testKey.'?timestamp='.$timeStampToMatch);
+        $response->assertStatus(200);
+        $content = json_decode($response->getContent());
+        $this->assertEquals($testSubject->_id, $content->data->_id);
+        $this->assertEquals($timeStampToMatch, date("U", strtotime($content->data->created_at)));
+    }
 }
