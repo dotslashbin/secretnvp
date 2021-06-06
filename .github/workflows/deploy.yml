@@ -21,7 +21,7 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
 
     - name: importing mongo data
-      script: mongo db.json
+      run: mongo db.json
   # tests:
   #   name: Run tests
   #   needs: build-database
