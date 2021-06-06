@@ -9,6 +9,9 @@ return [
         'SINGLE_RECORD' => 'SINGLE_RECORD'
     ],
 
+    'DEFAULT_ITEMS_PER_PAGE' => 100,
+    'DEFAULT_SKIP' => 0,
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
