@@ -2,64 +2,39 @@ name: Laravel
 
 on:
   push:
-    branches: [ master ]
+    branches: [ pipelinetest ]
 
 jobs:
-  deploy:
+  tests:
+    name: Run tests
     runs-on: ubuntu-latest
-  
     steps:
-      - name: Prepping deployment artifacts
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_URL }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            sudo mkdir /var/www/test
-            cd /home/ubuntu/secretnvp
-            git checkout -f 
-            git pull origin master
-            tar -czf ${{ github.sha }}.tar.gz --exclude=.git --exclude=node_modules *
-        
-      - name: Backing up and setup for installation
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_URL }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            cd /var/www/
-            sudo rm -Rf *.tar.gz
-            sudo mv test/ test-$(date "+%Y.%m.%d-%H.%M")
-            sudo tar -cvf test-$(date "+%Y.%m.%d-%H.%M").tar test-$(date "+%Y.%m.%d-%H.%M")/
-            sudo gzip -9vf test-$(date "+%Y.%m.%d-%H.%M").tar
-            sudo rm -Rf test-$(date "+%Y.%m.%d-%H.%M")
-            sudo mkdir test
-            sudo cp -Rf essentials/.env essentials/vendor test
+      - uses: actions/checkout@v1
 
-      - name: Installing new files
-        uses: appleboy/ssh-action@master
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
         with:
-          host: ${{ secrets.SERVER_URL }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          script: |
-            cd /home/ubuntu/secretnvp
-            sudo cp -v ${{ github.sha }}.tar.gz /var/www/test
-            cd /var/www/test
-            sudo tar -xf ${{ github.sha }}.tar.gz
-            cd ../
-            sudo chown -Rf www-data:www-data test/
-      
-      # - name: Cleanup
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.SERVER_URL }}
-      #     username: ${{ secrets.USERNAME }}
-      #     password: ${{ secrets.SSH_PASSWORD }}
-      #     script: |
-      #       cd /home/ubuntu/
-      #       touch ANOTHER.txt
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
 
-        
+      - name: Run composer install
+        run: composer install -n --prefer-dist
+        env:
+          APP_ENV: testing
+
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Run tests
+        run: ./vendor/bin/phpunit
+        env:
+          APP_ENV: testing
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: Logs
+          path: ./storage/logs
