@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\NVPModel;
+use PhpParser\Node\Expr\Instanceof_;
 
 class ReadTest extends TestCase
 {
@@ -61,5 +63,21 @@ class ReadTest extends TestCase
         $this->assertEquals($limit, count($content->data));
     }
 
-
+    /**
+     * Tests to see if fetching one does indeed return the latest out of the collection. 
+     * This asssumes that there is a record with key = 'FOO'. This has been set from within the 
+     * db seeder. 
+     *
+     * @return void
+     */
+    public function test_if_fetching_one_returns_the_latest()
+    {
+        $testKey = 'FOO';
+        $response = $this->get(self::API_PATH.'/'.$testKey);
+        $response->assertStatus(200);
+        $content = json_decode($response->getContent());
+        $this->assertTrue(is_object($content->data));
+        $basis = NVPModel::where('key', $testKey)->orderByDesc('created_at')->limit(1)->get(); 
+        $this->assertEquals($basis[0]->_id, $content->data->_id);
+    }
 }
