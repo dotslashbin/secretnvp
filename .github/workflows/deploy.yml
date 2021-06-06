@@ -5,6 +5,78 @@ on:
     branches: [ master ]
 
 jobs:
+  build-database:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mongodb-version: ['4.4']
+
+    steps:
+    - name: Git checkout
+      uses: actions/checkout@v2
+
+    - name: Start MongoDB
+      uses: supercharge/mongodb-github-action@1.6.0
+      with:
+        mongodb-version: ${{ matrix.mongodb-version }}
+
+    - name: test connection
+      run: sudo mongo localhost:27017
+
+    - name: importing mongo data
+      run: mongoimport --db testdb --file ./testdb.json -c nvps  
+
+    - name: check if mongo is alive
+      run: mongo --eval "printjson(db.serverStatus())"
+
+    - name: check if data is present
+      run: mongo testdb --eval "db.nvps.find().count()"
+
+  setup-laravel:
+    needs: build-database
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo
+        env:
+          MONGO_INITDB_ROOT_USERNAME: 
+          MONGO_INITDB_ROOT_PASSWORD: 
+          MONGO_INITDB_DATABASE: testdb
+        options: >-
+          --health-cmd mongo
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 27017:27017
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v1
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+
+      - name: Run composer install
+        run: composer install -n --prefer-dist
+        env:
+          APP_ENV: testing
+
+      - name: Run tests
+        env:
+          DB_CONNECTION: mongodb
+          MONGO_DB_HOST: localhost
+          MONGO_DB_PORT: 27017
+          MONGO_DB_DATABASE: testdb
+          MONGO_DB_USERNAME: 
+          MONGO_DB_PASSWORD: 
+
+        run: php artisan test
+        
   deploy:
     runs-on: ubuntu-latest
   
