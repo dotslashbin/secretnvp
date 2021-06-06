@@ -34,6 +34,7 @@ jobs:
             sudo mv test/ test-$(date "+%Y.%m.%d-%H.%M")
             sudo tar -cvf test-$(date "+%Y.%m.%d-%H.%M").tar test-$(date "+%Y.%m.%d-%H.%M")/
             sudo gzip -9vf test-$(date "+%Y.%m.%d-%H.%M").tar
+            sudo rm -Rf test-$(date "+%Y.%m.%d-%H.%M")
             sudo mkdir test
             sudo cp -Rf essentials/.env essentials/vendor test
 
