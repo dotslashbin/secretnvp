@@ -10,6 +10,6 @@ class NVPModel extends Model
 {
     use HasFactory;
 
-    protected $collection = 'name-value-pairs';
+    protected $collection = 'nvps';
     protected $fillable = ['key', 'value'];
 }
