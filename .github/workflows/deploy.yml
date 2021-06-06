@@ -78,8 +78,8 @@ jobs:
         run: php artisan test
         
   deploy:
+    needs: setup-laravel
     runs-on: ubuntu-latest
-  
     steps:
       - name: Prepping deployment artifacts
         uses: appleboy/ssh-action@master
