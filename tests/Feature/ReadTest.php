@@ -42,4 +42,24 @@ class ReadTest extends TestCase
         $content = json_decode($response->getContent());
         $this->assertTrue(count($content->data) <= config('app.DEFAULT_ITEMS_PER_PAGE'));
     }
+
+    /**
+     * Tests the correctness of pagination data
+     *
+     * @return void
+     */
+    public function test_to_see_if_pagination_results_are_correct() {
+
+        $page = 5;
+        $limit = 10;
+
+        $response = $this->get(self::API_PATH.'/get-all-records?page='.$page.'.&limit='.$limit);
+        $response->assertStatus(200);
+        $content = json_decode($response->getContent());
+        $this->assertEquals($page, $content->page);
+        $this->assertEquals($limit, $content->itemsPerPage);
+        $this->assertEquals($limit, count($content->data));
+    }
+
+
 }
