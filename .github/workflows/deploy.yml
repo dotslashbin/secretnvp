@@ -20,6 +20,9 @@ jobs:
       with:
         mongodb-version: ${{ matrix.mongodb-version }}
 
+    - name: test connection
+      run: sudo mongo localhost:27017
+
     - name: importing mongo data
       run: mongoimport --db testdb --file ./db.json -c nvps  # tests:
 
@@ -28,7 +31,7 @@ jobs:
 
     - name: check if data is present
       run: mongo testdb --eval "db.nvps.find().count()"
-  
+
   # setup-laravel:
   #   needs: build-database
   #   runs-on: ubuntu-latest
