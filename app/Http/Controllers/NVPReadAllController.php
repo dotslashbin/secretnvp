@@ -15,7 +15,11 @@ class NVPReadAllController extends Controller
      */
     public function __invoke(NVPGetAllRequest $request)
     {
-        $nvpReader = new NVPReader('', '', $request->page, $request->limit);
+
+        $page = ($request->page === NULL || $request->page < 0)? config('app.DEFAULT_SKIP') + 1: (int) $request->page;
+        $limit = ($request->limit === NULL || $request->limit < 0)? config('app.DEFAULT_ITEMS_PER_PAGE'): (int) $request->limit;
+
+        $nvpReader = new NVPReader('', '', $page, $limit);
         $nvpReader->SetReturnStructure(config('app.NVPReturnStructures.DATA_SET'));
         return $this->executeProcess($nvpReader);
     }
