@@ -21,8 +21,9 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
 
     - name: importing mongo data
-      run: mongoimport --db bago --file ./db.json -c nvps  # tests:
-    name: Run tests
+      run: mongoimport --db bago --file ./db.json -c nvps
+      
+  name: Setting up laravel and testing
     needs: build-database
     runs-on: ubuntu-latest
     steps:
