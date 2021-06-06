@@ -90,14 +90,17 @@ class ReadTest extends TestCase
     {
         $testKey        = 'FOO';
         $basis          = NVPModel::where('key', $testKey)->get();
-        $testSubject    = $basis[rand(0, count($basis) - 1)];
 
-        $timeStampToMatch = date("U", strtotime($testSubject->created_at));
+        if($basis) {
+            $testSubject    = $basis[rand(0, count($basis) - 1)];
 
-        $response = $this->get(self::API_PATH.'/'.$testKey.'?timestamp='.$timeStampToMatch);
-        $response->assertStatus(200);
-        $content = json_decode($response->getContent());
-        $this->assertEquals($testSubject->_id, $content->data->_id);
-        $this->assertEquals($timeStampToMatch, date("U", strtotime($content->data->created_at)));
+            $timeStampToMatch = date("U", strtotime($testSubject->created_at));
+
+            $response = $this->get(self::API_PATH.'/'.$testKey.'?timestamp='.$timeStampToMatch);
+            $response->assertStatus(200);
+            $content = json_decode($response->getContent());
+            $this->assertEquals($testSubject->_id, $content->data->_id);
+            $this->assertEquals($timeStampToMatch, date("U", strtotime($content->data->created_at)));
+        }
     }
 }
