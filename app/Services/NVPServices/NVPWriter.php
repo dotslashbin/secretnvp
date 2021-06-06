@@ -3,7 +3,6 @@
 namespace App\Services\NVPServices;
 use App\Services\NVPServices\DataServiceINT;
 use App\Models\NVPModel;
-use stdClass;
 
 class NVPWriter implements DataServiceINT {
 

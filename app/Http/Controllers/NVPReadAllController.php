@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\NVPServices\NVPReader as NVPReader;
-use Illuminate\Http\Request;
+use App\Http\Requests\NVPGetAllRequest;
 
 class NVPReadAllController extends Controller
 {
@@ -13,9 +13,9 @@ class NVPReadAllController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(NVPGetAllRequest $request)
     {
-        $nvpReader = new NVPReader();
+        $nvpReader = new NVPReader('', '', $request->page, $request->limit);
         $nvpReader->SetReturnStructure(config('app.NVPReturnStructures.DATA_SET'));
         return $this->executeProcess($nvpReader);
     }
