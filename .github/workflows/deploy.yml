@@ -80,6 +80,12 @@ jobs:
 
         run: php artisan test
 
+  install:
+    runs-on: ubuntu-latest
+    needs: setup-laravel
+    steps: 
+      - name: do something
+        run: echo "do something here"
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@master
       #   if: failure()
