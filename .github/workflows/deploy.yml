@@ -66,8 +66,8 @@ jobs:
         env:
           APP_ENV: testing
 
-      - name: Prepare Laravel Application
-        run: cp .env-works .env
+      # - name: Prepare Laravel Application
+      #   run: cp .env-works .env
 
       - name: Run tests
         env:
