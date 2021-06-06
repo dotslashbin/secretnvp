@@ -21,8 +21,7 @@ jobs:
         mongodb-version: ${{ matrix.mongodb-version }}
 
     - name: importing mongo data
-      run: mongo db.json
-  # tests:
+      run: mongoimport --db bago --file ./db.json -c nvps  # tests:
   #   name: Run tests
   #   needs: build-database
   #   runs-on: ubuntu-latest
