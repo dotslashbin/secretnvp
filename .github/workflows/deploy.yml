@@ -30,7 +30,10 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           script: |
             cd /var/www/
-            sudo mv test/ test-$(date "+%Y.%m.%d-%H.%M.%S")
+            sudo rm -Rf *.tar.gz
+            sudo mv test/ test-$(date "+%Y.%m.%d-%H.%M")
+            sudo tar -cvf test-$(date "+%Y.%m.%d-%H.%M").tar test-$(date "+%Y.%m.%d-%H.%M")/
+            sudo gzip -9vf test-$(date "+%Y.%m.%d-%H.%M").tar
             sudo mkdir test
             sudo cp -Rf essentials/.env essentials/vendor test
 
