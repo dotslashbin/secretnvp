@@ -44,6 +44,9 @@ jobs:
           path: vendor
           key: composer-${{ hashFiles('composer.lock') }}
 
+      - name: Directory Permissions
+        run: chmod -R 777 storage bootstrap/cache
+
       - name: Run composer install
         run: composer install -n --prefer-dist
         env:
@@ -53,6 +56,14 @@ jobs:
         run: cp .env-works .env
 
       - name: Run tests
+        env: |
+          DB_CONNECTION=mongodb
+          MONGO_DB_HOST=localhost
+          MONGO_DB_PORT=27017
+          MONGO_DB_DATABASE=testdb
+          MONGO_DB_USERNAME=
+          MONGO_DB_PASSWORD=
+
         run: php artisan test
 
       # - name: Upload artifacts
