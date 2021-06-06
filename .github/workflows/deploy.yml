@@ -22,31 +22,35 @@ jobs:
 
     - name: importing mongo data
       run: mongoimport --db testdb --file ./db.json -c nvps  # tests:
+
+    - name: check if mongo is alive
+      run: mongo --eval "printjson(db.serverStatus())"
+
+    - name: check if data is present
+      run: mongo testdb --eval "db.nvps.find().count()"
   
-  setup-laravel:
-    needs: build-database
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
+  # setup-laravel:
+  #   needs: build-database
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v1
 
-      - name: Cache composer dependencies
-        uses: actions/cache@v1
-        with:
-          path: vendor
-          key: composer-${{ hashFiles('composer.lock') }}
+  #     - name: Cache composer dependencies
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: vendor
+  #         key: composer-${{ hashFiles('composer.lock') }}
 
-      - name: Run composer install
-        run: composer install -n --prefer-dist
-        env:
-          APP_ENV: testing
+  #     - name: Run composer install
+  #       run: composer install -n --prefer-dist
+  #       env:
+  #         APP_ENV: testing
 
-      - name: Prepare Laravel Application
-        run: |
-          cp .env-works .env
-          php artisan key:generate
+  #     - name: Prepare Laravel Application
+  #       run: 1cp .env-works .env
 
-      - name: Run tests
-        run: php artisan test
+  #     - name: Run tests
+  #       run: php artisan test
 
       # - name: Upload artifacts
       #   uses: actions/upload-artifact@master
