@@ -19,7 +19,8 @@ class InputConverter
     public function handle(Request $request, Closure $next)
     {
         $expectedJSON = $request->all();
-        if(!is_array($expectedJSON)) {
+        if(!is_array($expectedJSON) || count($expectedJSON) > 1) {
+            // TODO: implement helper return   
             return new JsonResponse('Invalid input format', 422);
         }
 
