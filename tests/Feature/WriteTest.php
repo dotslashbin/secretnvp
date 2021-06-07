@@ -63,10 +63,10 @@ class WriteTest extends TestCase
         $response = $this->postJson(self::API_PATH, [ $key => $value ]);
         $response->assertStatus(422);   
         $result = json_decode($response->getContent());
-        $this->assertGreaterThan(0, count($result->key));
-        $this->assertGreaterThan(0, count($result->value));
-        $this->assertEquals("The key must only contain letters and numbers.", $result->key[0]);
-        $this->assertEquals("The value must only contain letters and numbers.", $result->value[0]);
+        $this->assertGreaterThan(0, count($result->errors->key));
+        $this->assertGreaterThan(0, count($result->errors->value));
+        $this->assertEquals("The key must only contain letters and numbers.", $result->errors->key[0]);
+        $this->assertEquals("The value must only contain letters and numbers.", $result->errors->value[0]);
     }
 
     /**
