@@ -7,6 +7,9 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use App\Rules\UnixTimestamp;
 
+/**
+ * This class provides the structure for a "Get One" request
+ */
 class NVPGetRequest extends FormRequest
 {
     /**

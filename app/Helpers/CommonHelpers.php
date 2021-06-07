@@ -13,6 +13,7 @@ function FormatReturn($data, $returnStructure, $page = 0, $limit = 0) {
 
 	$format->data = $data;
 
+	// If the structure to build is a data set, it will include the page and limit values with the output
 	if($returnStructure === config('app.NVPReturnStructures.DATA_SET')) {
 		$format->page = ($page > 0)? $page: config('app.DEFAULT_SKIP'); 
 		$format->itemsPerPage = ($limit > 0)? $limit: config('app.DEFAULT_ITEMS_PER_PAGE');
