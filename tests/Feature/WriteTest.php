@@ -23,7 +23,7 @@ class WriteTest extends TestCase
         $key = $this->faker->word();
         $value = $this->faker->word();
 
-        $response = $this->post(self::API_PATH, [ 'key' => $key, 'value' => $value ]);
+        $response = $this->postJson(self::API_PATH, [ $key => $value ]);
         $response->assertStatus(200);   
 
         $returnValue = json_decode($response->getContent());
@@ -42,7 +42,7 @@ class WriteTest extends TestCase
         $key = '<haha>destroyWebsite</haha>';
         $value = '<script>textwithtag</script>';
 
-        $response = $this->post(self::API_PATH, [ 'key' => $key, 'value' => $value ]);
+        $response = $this->postJson(self::API_PATH, [ $key => $value ]);
         $response->assertStatus(200);   
 
         $returnValue = json_decode($response->getContent());
@@ -60,7 +60,7 @@ class WriteTest extends TestCase
         $key = '<haha>thismu*&#*$&^$*#stfai821739872937</haha>';
         $value = '<script>textwithtag(*#&49</script>';
 
-        $response = $this->post(self::API_PATH, [ 'key' => $key, 'value' => $value ]);
+        $response = $this->postJson(self::API_PATH, [ $key => $value ]);
         $response->assertStatus(422);   
         $result = json_decode($response->getContent());
         $this->assertGreaterThan(0, count($result->key));
@@ -76,10 +76,10 @@ class WriteTest extends TestCase
      */
     public function test_if_no_input_fails_validation()
     {
-        $response = $this->post(self::API_PATH, [ 'key' => null, 'value' => null ]);
+        $response = $this->postJson(self::API_PATH, []);
         $response->assertStatus(422);   
 
-        $response = $this->post(self::API_PATH);
+        $response = $this->postJson(self::API_PATH);
         $response->assertStatus(422);   
     }
 
@@ -94,12 +94,7 @@ class WriteTest extends TestCase
         $key = $this->faker->word();
         $value = $this->faker->word();
 
-        $response = $this->post(self::API_PATH, [ 'key' => $key, 'value' => $value, 'unwated' => 'input', 'another' => 'unexpected input' ]);
-        $response->assertStatus(200);   
-        $result = json_decode($response->getContent());
-        $insertedRecord = $result->data;
-        $this->assertEquals($key, $insertedRecord->key);
-        $this->assertEquals($value, $insertedRecord->value);
-        $this->assertFalse(property_exists($insertedRecord, 'unwanted'));
+        $response = $this->postJson(self::API_PATH, [ $key => $value, 'x' => 'y' ]);
+        $response->assertStatus(422);   
     }
 }
