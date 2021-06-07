@@ -35,6 +35,7 @@ class NVPWriteRequest extends FormRequest
     }
 
     protected function failedValidation(Validator $validator) {
-        throw new HttpResponseException(response()->json($validator->errors(), 422));
+        $output = FormatReturn($validator->errors(), config('app.NVPReturnStructures.ERROR'));
+        throw new HttpResponseException(response()->json($output, 422));
     }
 }
