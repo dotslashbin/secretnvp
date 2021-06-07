@@ -6,7 +6,8 @@ return [
      */
     'NVPReturnStructures' => [
         'DATA_SET' => 'DATA_SET',
-        'SINGLE_RECORD' => 'SINGLE_RECORD'
+        'SINGLE_RECORD' => 'SINGLE_RECORD',
+        'ERROR' =>  'ERROR'
     ],
 
     'DEFAULT_ITEMS_PER_PAGE' => 100,
