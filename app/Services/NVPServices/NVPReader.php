@@ -5,6 +5,13 @@ use App\Services\NVPServices\DataServiceINT;
 use App\Models\NVPModel;
 use Carbon\Carbon;
 
+/**
+ * A class that is responsible for retrieving data for presentation. 
+ * This has the potential to be extended into sub classes if the scope gets 
+ * bigger and further organization is required. 
+ * 
+ * THIS IS NOT MEANT TO BE A REPOSITORY APPROACH
+ */
 class NVPReader implements DataServiceINT {
 
 	private $filterKey;
@@ -24,6 +31,11 @@ class NVPReader implements DataServiceINT {
 		$this->page = ($page > 0)? $page: 1;
 	}
 
+	/**
+	 * Returns the assiciated structure
+	 *
+	 * @return void
+	 */
 	public function GetReturnStructure() {
 		return $this->returnStructure;
 	}

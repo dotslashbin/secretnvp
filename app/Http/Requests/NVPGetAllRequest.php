@@ -6,6 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
+/**
+ * This class provides  strccuture for "GetALL"
+ */
 class NVPGetAllRequest extends FormRequest
 {
     /**
@@ -31,6 +34,12 @@ class NVPGetAllRequest extends FormRequest
         ];
     }
 
+    /**
+     * This throws and exception if there are any validation errors
+     *
+     * @param Validator $validator
+     * @return void
+     */
     protected function failedValidation(Validator $validator) {
         throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
