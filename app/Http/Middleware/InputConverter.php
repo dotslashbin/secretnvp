@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\VarDumper\VarDumper;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use stdClass;
 
 class InputConverter
 {
@@ -20,8 +22,10 @@ class InputConverter
     {
         $expectedJSON = $request->all();
         if(!is_array($expectedJSON) || count($expectedJSON) > 1) {
-            // TODO: implement helper return   
-            return new JsonResponse('Invalid input format', 422);
+            $output = new stdClass; 
+            $output->errors = new stdClass;
+            $output->errors->format = ['Unacceptable input format'];
+            throw new HttpResponseException(response()->json($output, 422));
         }
 
         foreach($expectedJSON as $inputtedKey => $inputtedValue) {
