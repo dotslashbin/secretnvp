@@ -4,6 +4,9 @@ namespace App\Services\NVPServices;
 use App\Services\NVPServices\DataServiceINT;
 use App\Models\NVPModel;
 
+/**
+ * This class is responsible for writing or saving data. 
+ */
 class NVPWriter implements DataServiceINT {
 
 	private $key;
@@ -16,6 +19,11 @@ class NVPWriter implements DataServiceINT {
 		$this->value = $value;
 	}
 
+	/**
+	 * Returns the associated structure
+	 *
+	 * @return void
+	 */
 	public function GetReturnStructure() {
 		return $this->returnStructure;
 	}

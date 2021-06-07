@@ -15,6 +15,7 @@ class NVPWriteController extends Controller
      */
     public function __invoke(NVPWriteRequest $request)
     {
+        // Creates a NVPReader instance to execute the task
         $nvpWriter = new NVPWriter($request->key, $request->value);
         $nvpWriter->SetReturnStructure(config('app.NVPReturnStructures.SINGLE_RECORD'));
         return $this->executeProcess($nvpWriter);

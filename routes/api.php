@@ -16,6 +16,21 @@ use App\Http\Controllers\NVPReadAllController;
 use App\Http\Controllers\NVPReadOneController;
 use App\Http\Controllers\NVPWriteController;
 
-Route::get('object/get-all-records', NVPReadAllController::class);
-Route::get('object/{key}', NVPReadOneController::class);
+/**
+ * Fetches a collection of paginated results. 
+ * Optional query string parameters
+ * page - number
+ * liimit - number
+ */
+Route::get('object/get-all-records', NVPReadAllController::class)->middleware('XssSanitizer');
+
+/**
+ * Fetches a record with the given key. 
+ * Optional query string parameters: timestamp - unix timestamp
+ */
+Route::get('object/{key}', NVPReadOneController::class)->middleware('XssSanitizer');
+
+/**
+ * Creates a new rocord
+ */
 Route::post('object', NVPWriteController::class)->middleware('XssSanitizer');
