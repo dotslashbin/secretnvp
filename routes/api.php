@@ -33,4 +33,4 @@ Route::get('object/{key}', NVPReadOneController::class)->middleware('XssSanitize
 /**
  * Creates a new rocord
  */
-Route::post('object', NVPWriteController::class)->middleware('XssSanitizer');
+Route::post('object', NVPWriteController::class)->middleware('XssSanitizer', 'InputConverter');

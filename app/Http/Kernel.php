@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'XssSanitizer' => \App\Http\Middleware\XssSanitizer::class,
+        'InputConverter' => \App\Http\Middleware\InputConverter::class,
     ];
 }

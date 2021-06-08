@@ -38,8 +38,9 @@ You can use curl or any REST API tools available. Here are the endpoints with ex
 * POST -> **{your-host}/api/object**
 	* Creates a record
 	* Expected input for the request body:
-		* key - alpha numeric
-		* value - alpha numeric
+		* json string with "key" and "value"
+		* Example: { "FOO":"bar" }
+		
 * GET -> **{your-host}/api/object/get-all-records**
 	* Fetches a collection of records
 	* Optional query parameters
