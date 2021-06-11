@@ -58,11 +58,10 @@ class NVPReader implements DataServiceINT {
 		$query = NVPModel::where('key', $this->filterKey);
 
 		if($this->filterTimestamp) {
-			$convertedDate = Carbon::createFromTimestamp($this->filterTimestamp);
-			$query->where('created_at', $convertedDate); 
+			$query->where('timestamp', $this->filterTimestamp); 
 		}
 
-		$query->orderBy('created_at', 'desc');
+		$query->orderBy('timestamp', 'desc');
 
 		return $query->first();
 	}
