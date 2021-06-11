@@ -25,7 +25,7 @@ class ReadTest extends TestCase
         $content = $response->getContent(); 
 
         $result = json_decode($content);
-        // $this->assertTrue($result->data->key === $inputValue);
+        $this->assertTrue($result->data->key === $inputValue);
     }
 
     /**
