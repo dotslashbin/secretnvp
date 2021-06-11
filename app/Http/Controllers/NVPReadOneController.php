@@ -17,10 +17,10 @@ class NVPReadOneController extends Controller
     {
         // Initilaizes the values for key and timestamp
         $key = $request->key;
-        $timestamp = ($request->timestamp)? (int)$request->timestamp:'';
+        $timestamp = ($request->timestamp)? $request->timestamp:'';
 
         // Creates a NVPReader instance to execute the task
-        $nvpReader = new NVPReader($key, $timestamp);
+        $nvpReader = new NVPReader($key, (int) $timestamp);
         $nvpReader->SetReturnStructure(config('app.NVPReturnStructures.SINGLE_RECORD'));
         return $this->executeProcess($nvpReader);
     }

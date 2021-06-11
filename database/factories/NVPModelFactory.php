@@ -26,7 +26,7 @@ class NVPModelFactory extends Factory
         return [
             'key' => $this->faker->word(),
             'value' => $this->faker->word(),
-            'timpestamp' => strtotime($fakeISODate)
+            'timestamp' => strtotime($fakeISODate)
         ];
     }
 }
