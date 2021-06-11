@@ -14,5 +14,5 @@ class NVPModel extends Model
     public $timestamps = false;
 
     protected $collection = 'nvps';
-    protected $fillable = ['key', 'value'];
+    protected $fillable = ['key', 'value', 'timestamp'];
 }
