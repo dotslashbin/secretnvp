@@ -87,7 +87,7 @@ class ReadTest extends TestCase
         $basis          = NVPModel::where('key', $testKey)->get();
 
         if($basis) {
-            $testSubject    = $basis[rand(0, count($basis) - 1)];
+            $testSubject    = $basis[rand(0, 4)];
 
             $timeStampToMatch = $testSubject["timestamp"];
 
