@@ -17,7 +17,7 @@ class NVPReadOneController extends Controller
     {
         // Initilaizes the values for key and timestamp
         $key = $request->key;
-        $timestamp = ($request->timestamp)? $request->timestamp:'';
+        $timestamp = ($request->timestamp)? (int)$request->timestamp:'';
 
         // Creates a NVPReader instance to execute the task
         $nvpReader = new NVPReader($key, $timestamp);
