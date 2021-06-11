@@ -38,7 +38,7 @@ class NVPWriter implements DataServiceINT {
 		$nvpRecord = new NVPModel;
 		$nvpRecord->key = $this->key;
 		$nvpRecord->value = $this->value;
-
+		$nvpRecord->timestamp = time();
 		$result = $nvpRecord->save();
 
 		return ($result)? $nvpRecord: null;
