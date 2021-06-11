@@ -11,17 +11,8 @@ use Illuminate\Support\Facades\Date;
 class NVPModel extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $collection = 'nvps';
-    protected $fillable = ['key', 'value'];
-    protected $appends = ['timestamp'];
-
-    /**
-     * Dynamically creates a timetamp attribute to add ot the output model
-     *
-     * @return void
-     */
-    public function getTimestampAttribute() {
-        return (string) $this->attributes['created_at'];
-    }   
+    protected $fillable = ['key', 'value', 'timestamp'];
 }

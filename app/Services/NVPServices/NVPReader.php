@@ -22,7 +22,7 @@ class NVPReader implements DataServiceINT {
 	public $limit; 
 	public $skip; 
 
-	function __construct(string $key = '', string $timestamp = '', int $page = 0, int $limit = 0)
+	function __construct(string $key = '', int $timestamp = 0, int $page = 0, int $limit = 0)
 	{
 		$this->filterKey = $key;
 		$this->filterTimestamp = $timestamp;
@@ -58,11 +58,10 @@ class NVPReader implements DataServiceINT {
 		$query = NVPModel::where('key', $this->filterKey);
 
 		if($this->filterTimestamp) {
-			$convertedDate = Carbon::createFromTimestamp($this->filterTimestamp);
-			$query->where('created_at', $convertedDate); 
+			$query->where('timestamp', $this->filterTimestamp); 
 		}
 
-		$query->orderBy('created_at', 'desc');
+		$query->orderBy('timestamp', 'desc');
 
 		return $query->first();
 	}

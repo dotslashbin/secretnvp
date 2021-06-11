@@ -21,10 +21,12 @@ class NVPModelFactory extends Factory
      */
     public function definition()
     {
+        $fakeISODate = $this->faker->iso8601();
+
         return [
             'key' => $this->faker->word(),
             'value' => $this->faker->word(),
-            'created_at' => $this->faker->iso8601()
+            'timestamp' => strtotime($fakeISODate)
         ];
     }
 }

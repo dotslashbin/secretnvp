@@ -21,7 +21,7 @@ class NVPReadAllController extends Controller
         $limit = ($request->limit === NULL || $request->limit < 0)? config('app.DEFAULT_ITEMS_PER_PAGE'): (int) $request->limit;
 
         // Creates a NVPReader instance to execute the task
-        $nvpReader = new NVPReader('', '', $page, $limit);
+        $nvpReader = new NVPReader('', 0, $page, $limit);
         $nvpReader->SetReturnStructure(config('app.NVPReturnStructures.DATA_SET'));
         return $this->executeProcess($nvpReader);
     }
