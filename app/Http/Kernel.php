@@ -64,5 +64,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'XssSanitizer' => \App\Http\Middleware\XssSanitizer::class,
         'InputConverter' => \App\Http\Middleware\InputConverter::class,
+        'CheckJSON' => \App\Http\Middleware\CheckJSON::class,
+        'CheckToken' => \App\Http\Middleware\CheckToken::class,
     ];
 }
